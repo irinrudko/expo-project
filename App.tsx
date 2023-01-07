@@ -22,7 +22,7 @@ export default function App() {
             <View style={styles.main}>
                 <Text style={styles.title}>Today's tasks</Text>
                 <Tasks />
-                <View>
+                <View style={styles.inputContainer}>
                     {/* <TouchableOpacity style={styles.button} onPress={() => {}}>
                         <Text>TouchableOpacity</Text>
                     </TouchableOpacity>
@@ -35,6 +35,9 @@ export default function App() {
                         placeholder="What are you up to?"
                         style={styles.input}
                     />
+                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                        <Text>+</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -87,25 +90,38 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
     },
-    input: {
-        width: '70%',
-        backgroundColor: '#fffffe',
-        fontSize: 18,
-        margin: 20,
-        padding: 17,
-        borderRadius: 30,
-        marginBottom: 30,
-    },
+
     boxTask: {
         flexDirection: 'row',
         paddingVertical: 4,
         paddingHorizontal: 20,
         marginVertical: 3,
     },
+    inputContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        // backgroundColor: 'blue',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        margin: 20,
+        marginLeft: 0,
+    },
+    input: {
+        width: 270,
+        backgroundColor: '#fffffe',
+        fontSize: 18,
+        margin: 20,
+        marginLeft: 0,
+        padding: 20,
+        height: 70,
+        borderRadius: 30,
+    },
     button: {
         backgroundColor: '#fffffe',
-        padding: 12,
-        marginVertical: 10,
-        width: 150,
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 })
