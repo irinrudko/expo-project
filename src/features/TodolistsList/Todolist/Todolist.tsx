@@ -93,7 +93,7 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
                     />
                 ))}
             </View>
-            <View style={{ paddingTop: '10px' }}>
+            <View style={{ paddingTop: 10 }}>
                 {/* <Button
                     variant={props.todolist.filter === 'all' ? 'outlined' : 'text'}
                     onClick={onAllClickHandler}
