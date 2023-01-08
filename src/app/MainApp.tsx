@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import './App.css'
+// import './App.css'
 import { TodolistsList } from '../features/TodolistsList/TodolistsList'
 // import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar'
 import { useSelector } from 'react-redux'
@@ -12,10 +12,10 @@ type PropsType = {
     demo?: boolean
 }
 
-function MainApp({ demo = false }: PropsType) {
+export const MainApp = ({ demo = false }: PropsType) => {
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
     return (
-        <div className="App">
+        <View>
             {/* <ErrorSnackbar /> */}
             {/* <AppBar position="static">
                 <Toolbar>
@@ -32,8 +32,6 @@ function MainApp({ demo = false }: PropsType) {
             <View>
                 <TodolistsList demo={demo} />
             </View>
-        </div>
+        </View>
     )
 }
-
-export default MainApp

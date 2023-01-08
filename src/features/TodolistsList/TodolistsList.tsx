@@ -78,7 +78,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
 
     return (
         <>
-            <View style={{ padding: '20px' }}>
+            <View style={{ padding: 20 }}>
                 <AddItemForm addItem={addTodolist} />
             </View>
             <View>
@@ -87,7 +87,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
 
                     return (
                         <View key={tl.id}>
-                            <View style={{ padding: '10px' }}>
+                            <View style={{ padding: 10 }}>
                                 <Todolist
                                     todolist={tl}
                                     tasks={allTodolistTasks}
