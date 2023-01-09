@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Text, TextInput } from 'react-native'
+import { Text, TextInput, StyleSheet, View } from 'react-native'
 
 type EditableSpanPropsType = {
     value: string
@@ -18,18 +18,30 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
         setEditMode(false)
         props.onChange(title)
     }
-    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+    const changeTitle = (e: string) => {
+        setTitle(e)
     }
 
     return editMode ? (
-        <TextInput value="Type sth..." />
-    ) : (
-        // <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
-        <Text
-        //  onDoubleClick={activateEditMode}
+        <View
+        // style={styles.input}
         >
-            {props.value}
-        </Text>
+            <TextInput value={title} onChangeText={changeTitle} onBlur={activateViewMode} autoFocus />
+        </View>
+    ) : (
+        <Text onLongPress={activateEditMode}>{props.value}</Text>
     )
+})
+
+const styles = StyleSheet.create({
+    input: {
+        width: 270,
+        backgroundColor: '#e3f6f5',
+        fontSize: 25,
+        // margin: 20,
+        marginLeft: 0,
+        padding: 20,
+        // height: 70,
+        borderRadius: 30,
+    },
 })
