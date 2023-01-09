@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { AddItemForm } from '../../../components/AddItemForm/AddItemForm'
 import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
 import { Task } from './Task/Task'
 import { TaskStatuses, TaskType } from '../../../api/todolists-api'
 import { FilterValuesType, TodolistDomainType } from '../todolists-reducer'
 import { fetchTasksTC } from '../tasks-reducer'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native'
 import { useAppDispatch } from '../../../app/store'
+import { FontAwesome } from '@expo/vector-icons'
 
 type PropsType = {
     todolist: TodolistDomainType
@@ -22,9 +23,9 @@ type PropsType = {
 }
 
 export const Todolist = React.memo(function ({ demo = false, ...props }: PropsType) {
-    console.log('Todolist called')
-
     const dispatch = useAppDispatch()
+    const [showBox, setShowBox] = useState(true)
+
     useEffect(() => {
         if (demo) {
             return
@@ -41,7 +42,17 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
     )
 
     const removeTodolist = () => {
-        props.removeTodolist(props.todolist.id)
+        return Alert.alert('Are your sure?', 'Are you sure you want to delete this todolist?', [
+            {
+                text: 'Yes',
+                onPress: () => {
+                    props.removeTodolist(props.todolist.id)
+                },
+            },
+            {
+                text: 'No',
+            },
+        ])
     }
     const changeTodolistTitle = useCallback(
         (title: string) => {
@@ -74,13 +85,16 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
 
     return (
         <View>
-            <Text> x </Text>
+            <View style={styles.titleContainer}>
+                <Text style={styles.title}>
+                    <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle} />
+                </Text>
+                <TouchableOpacity onPress={removeTodolist}>
+                    <FontAwesome name="remove" size={24} color="black" />
+                </TouchableOpacity>
+            </View>
 
-            <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle} />
-            {/* <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}>
-                    <Delete />
-                </IconButton> */}
-            <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'} />
+            {/* <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'} /> */}
             <View>
                 {tasksForTodolist.map((t) => (
                     <Task
@@ -118,4 +132,16 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
             </View>
         </View>
     )
+})
+
+const styles = StyleSheet.create({
+    titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    title: {
+        fontWeight: '700',
+        color: '#272343',
+        fontSize: 25,
+    },
 })
