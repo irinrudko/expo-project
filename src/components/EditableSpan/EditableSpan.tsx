@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
 import { Text, TextInput, StyleSheet, View, TouchableOpacity } from 'react-native'
 
 type EditableSpanPropsType = {
     value: string
     onChange: (newValue: string) => void
+    variant: 'todolistTitle' | 'task'
 }
 
 export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
@@ -18,14 +19,17 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
         setEditMode(false)
         props.onChange(title)
     }
-    const changeTitle = (e: string) => {
-        setTitle(e)
+    const changeTitle = (title: string) => {
+        setTitle(title)
     }
 
     return editMode ? (
         <View>
             <TextInput
-                style={styles.input}
+                style={
+                    (props.variant === 'task' && styles.input) ||
+                    (props.variant === 'todolistTitle' && styles.todolistTitle)
+                }
                 value={title}
                 onChangeText={changeTitle}
                 onBlur={activateViewMode}
@@ -33,9 +37,15 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
             />
         </View>
     ) : (
-        <TouchableOpacity style={styles.taskText} onPress={activateEditMode}>
-            <Text>{props.value}</Text>
-        </TouchableOpacity>
+        <Text
+            style={
+                (props.variant === 'task' && styles.taskText) ||
+                (props.variant === 'todolistTitle' && styles.todolistTitle)
+            }
+            onPress={activateEditMode}
+        >
+            <Text style={props.variant === 'todolistTitle' && styles.todolistTitle}>{props.value}</Text>
+        </Text>
     )
 })
 
@@ -48,5 +58,9 @@ const styles = StyleSheet.create({
         padding: 5,
         paddingRight: '20%',
         // backgroundColor: 'red',
+    },
+    todolistTitle: {
+        fontSize: 25,
+        fontWeight: '600',
     },
 })

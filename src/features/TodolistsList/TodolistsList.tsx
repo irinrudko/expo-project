@@ -104,7 +104,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
                 })}
             </ScrollView>
             <View style={[GlobalStyles.border]}>
-                <AddItemForm style={'mainInput'} addItem={addTodolist} />
+                <AddItemForm variant={'mainInput'} addItem={addTodolist} />
             </View>
         </>
     )

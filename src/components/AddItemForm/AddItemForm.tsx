@@ -5,10 +5,10 @@ import { Ionicons } from '@expo/vector-icons'
 type AddItemFormPropsType = {
     addItem: (title: string) => void
     disabled?: boolean
-    style: 'mainInput' | 'todolistInput'
+    variant: 'mainInput' | 'todolistInput'
 }
 
-export const AddItemForm = React.memo(function ({ addItem, disabled = false, style }: AddItemFormPropsType) {
+export const AddItemForm = React.memo(function ({ addItem, disabled = false, variant }: AddItemFormPropsType) {
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
 
@@ -26,17 +26,17 @@ export const AddItemForm = React.memo(function ({ addItem, disabled = false, sty
     }
 
     return (
-        <View style={style === 'mainInput' ? styles.inputMainContainer : styles.inputContainer}>
+        <View style={variant === 'mainInput' ? styles.inputMainContainer : styles.inputContainer}>
             <TextInput
                 value={title}
                 onChangeText={onChangeHandler}
                 // onChange={onChangeHandler}
-                placeholder="What are you up to?"
-                style={style === 'mainInput' ? styles.inputMain : styles.input}
+                placeholder={variant === 'mainInput' ? 'Add new list' : 'What are you up to?'}
+                style={variant === 'mainInput' ? styles.inputMain : styles.input}
                 autoFocus
             />
             <TouchableOpacity
-                style={style === 'mainInput' ? styles.mainButton : styles.button}
+                style={variant === 'mainInput' ? styles.mainButton : styles.button}
                 onPress={addItemHandler}
             >
                 <Text style={styles.textButton}>+</Text>
