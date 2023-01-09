@@ -15,13 +15,13 @@ export const Task = React.memo((props: TaskPropsType) => {
     const removeTask = useCallback(() => {
         return Alert.alert('Are your sure?', 'Are you sure you want to delete this task?', [
             {
+                text: 'No',
+            },
+            {
                 text: 'Yes',
                 onPress: () => {
                     props.removeTask(props.task.id, props.todolistId)
                 },
-            },
-            {
-                text: 'No',
             },
         ])
     }, [props.task.id, props.todolistId])
@@ -47,7 +47,7 @@ export const Task = React.memo((props: TaskPropsType) => {
         >
             <View key={props.task.id} style={styles.taskContainer}>
                 <BouncyCheckbox isChecked={props.task.status === TaskStatuses.Completed} onPress={onChangeHandler} />
-                <EditableSpan value={props.task.title} onChange={onTitleChangeHandler} />
+                <EditableSpan value={props.task.title} onChange={onTitleChangeHandler} variant="task" />
             </View>
         </TouchableOpacity>
     )

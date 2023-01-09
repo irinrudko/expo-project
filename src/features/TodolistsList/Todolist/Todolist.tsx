@@ -44,13 +44,13 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
     const removeTodolist = () => {
         return Alert.alert('Are your sure?', 'Are you sure you want to delete this todolist?', [
             {
+                text: 'No',
+            },
+            {
                 text: 'Yes',
                 onPress: () => {
                     props.removeTodolist(props.todolist.id)
                 },
-            },
-            {
-                text: 'No',
             },
         ])
     }
@@ -86,15 +86,17 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
     return (
         <View>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>
-                    <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle} />
-                </Text>
+                <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle} variant="todolistTitle" />
                 <TouchableOpacity onPress={removeTodolist}>
                     <FontAwesome name="remove" size={24} color="black" />
                 </TouchableOpacity>
             </View>
 
-            <AddItemForm style="todolistInput" addItem={addTask} disabled={props.todolist.entityStatus === 'loading'} />
+            <AddItemForm
+                variant="todolistInput"
+                addItem={addTask}
+                disabled={props.todolist.entityStatus === 'loading'}
+            />
             <View>
                 {tasksForTodolist.map((t) => (
                     <Task
@@ -138,10 +140,5 @@ const styles = StyleSheet.create({
     titleContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-    },
-    title: {
-        fontWeight: '700',
-        color: '#272343',
-        fontSize: 25,
     },
 })
