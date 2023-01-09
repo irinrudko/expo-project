@@ -94,7 +94,7 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
                 </TouchableOpacity>
             </View>
 
-            {/* <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'} /> */}
+            <AddItemForm style="todolistInput" addItem={addTask} disabled={props.todolist.entityStatus === 'loading'} />
             <View>
                 {tasksForTodolist.map((t) => (
                     <Task

@@ -14,7 +14,8 @@ import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from './tasks-r
 import { TaskStatuses } from '../../api/todolists-api'
 import { AddItemForm } from '../../components/AddItemForm/AddItemForm'
 import { Todolist } from './Todolist/Todolist'
-import { View } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
+import { GlobalStyles } from '../../../GlobalStyles'
 
 type PropsType = {
     demo?: boolean
@@ -78,10 +79,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
 
     return (
         <>
-            <View style={{ padding: 20 }}>
-                <AddItemForm addItem={addTodolist} />
-            </View>
-            <View>
+            <ScrollView style={{}}>
                 {todolists.map((tl) => {
                     let allTodolistTasks = tasks[tl.id]
 
@@ -104,7 +102,12 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
                         </View>
                     )
                 })}
+            </ScrollView>
+            <View style={[GlobalStyles.border]}>
+                <AddItemForm style={'mainInput'} addItem={addTodolist} />
             </View>
         </>
     )
 }
+
+const styles = StyleSheet.create({})

@@ -1,12 +1,14 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
-import { TextInput, View, Text } from 'react-native'
+import { StyleSheet, TextInput, View, Text, TouchableOpacity } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
     disabled?: boolean
+    style: 'mainInput' | 'todolistInput'
 }
 
-export const AddItemForm = React.memo(function ({ addItem, disabled = false }: AddItemFormPropsType) {
+export const AddItemForm = React.memo(function ({ addItem, disabled = false, style }: AddItemFormPropsType) {
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
 
@@ -19,35 +21,91 @@ export const AddItemForm = React.memo(function ({ addItem, disabled = false }: A
         }
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
-
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (error !== null) {
-            setError(null)
-        }
-        if (e.charCode === 13) {
-            addItemHandler()
-        }
+    const onChangeHandler = (e: string) => {
+        setTitle(e)
     }
 
     return (
-        <View>
+        <View style={style === 'mainInput' ? styles.inputMainContainer : styles.inputContainer}>
             <TextInput
-                // variant="outlined"
-                // disabled={disabled}
-                // error={!!error}
-                value={'title'}
+                value={title}
+                onChangeText={onChangeHandler}
                 // onChange={onChangeHandler}
-                // onKeyPress={onKeyPressHandler}
-                // label="Title"
-                // helperText={error}
+                placeholder="What are you up to?"
+                style={style === 'mainInput' ? styles.inputMain : styles.input}
+                autoFocus
             />
-            {/* <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
-                <AddBox />
-            </IconButton> */}
-            <Text>Add-btn</Text>
+            <TouchableOpacity
+                style={style === 'mainInput' ? styles.mainButton : styles.button}
+                onPress={addItemHandler}
+            >
+                <Text style={styles.textButton}>+</Text>
+            </TouchableOpacity>
         </View>
     )
+})
+
+const styles = StyleSheet.create({
+    taskTitle: {
+        backgroundColor: '#fff',
+    },
+    inputContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        // backgroundColor: 'blue',
+        // justifyContent: 'space-between',
+        alignItems: 'center',
+        // margin: 20,
+        marginLeft: 0,
+    },
+    input: {
+        width: 270,
+        backgroundColor: '#fffffe',
+        fontSize: 22,
+        margin: 20,
+        marginLeft: 0,
+        padding: 20,
+        height: 30,
+        borderRadius: 30,
+        // color: 'black',
+    },
+    button: {
+        backgroundColor: '#fffffe',
+        width: 40,
+        height: 40,
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textButton: {
+        fontSize: 22,
+        fontWeight: '300',
+    },
+    inputMainContainer: {
+        // flex: 1,
+        flexDirection: 'row',
+        // backgroundColor: 'blue',
+        // justifyContent: 'space-between',
+        alignItems: 'center',
+        // margin: 20,
+        marginLeft: 0,
+    },
+    inputMain: {
+        width: 270,
+        backgroundColor: '#fffffe',
+        fontSize: 18,
+        margin: 20,
+        marginLeft: 0,
+        padding: 20,
+        height: 70,
+        borderRadius: 30,
+    },
+    mainButton: {
+        backgroundColor: '#fffffe',
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 })
