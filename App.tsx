@@ -15,61 +15,20 @@ const tasks = [
 
 export default function App() {
     return (
-        <View style={styles.app}>
-            <Provider store={store}>
+        <Provider store={store}>
+            <ScrollView style={styles.container}>
                 <MainApp />
-            </Provider>
-        </View>
-
-        // <View style={styles.app}>
-        //     <View style={styles.header}>
-        //         <Text>Home</Text>
-        //     </View>
-
-        //     <View style={styles.main}>
-        //         <Text style={styles.title}>Today's tasks</Text>
-        //         <Tasks />
-        //         <View style={styles.inputContainer}>
-        //             {/* <TouchableOpacity style={styles.button} onPress={() => {}}>
-        //                 <Text>TouchableOpacity</Text>
-        //             </TouchableOpacity>
-        //             <Pressable style={styles.button} onPress={() => {}}>
-        //                 {({ pressed }) => (pressed ? <Text>Pressed</Text> : <Text>Press me</Text>)}
-        //             </Pressable> */}
-        //             <TextInput
-        //                 value={value}
-        //                 onChangeText={setValue}
-        //                 placeholder="What are you up to?"
-        //                 style={styles.input}
-        //             />
-        //             <TouchableOpacity style={styles.button} onPress={() => {}}>
-        //                 <Text>+</Text>
-        //             </TouchableOpacity>
-        //         </View>
-        //     </View>
-        // </View>
+            </ScrollView>
+        </Provider>
     )
 }
 
-// const Tasks = () => {
-//     const Task = ({ title, isDone }) => (
-//         <View style={styles.tasksContainer}>
-//             <BouncyCheckbox isChecked={isDone} onPress={() => {}} />
-//             <Text style={styles.text}>{title}</Text>
-//         </View>
-//     )
-
-//     const renderTasks = ({ item }) => <Task title={item.title} isDone={item.isDone} />
-
-//     return <FlatList data={tasks} renderItem={renderTasks} keyExtractor={(task) => task.id} />
-// }
-
 const styles = StyleSheet.create({
-    app: {
+    container: {
         flex: 1,
         backgroundColor: '#ffd803',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
         marginTop: 50,
     },
 })

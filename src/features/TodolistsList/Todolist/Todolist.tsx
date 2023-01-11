@@ -5,7 +5,7 @@ import { Task } from './Task/Task'
 import { TaskStatuses, TaskType } from '../../../api/todolists-api'
 import { FilterValuesType, TodolistDomainType } from '../todolists-reducer'
 import { fetchTasksTC } from '../tasks-reducer'
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { useAppDispatch } from '../../../app/store'
 import { FontAwesome } from '@expo/vector-icons'
 
@@ -19,17 +19,13 @@ type PropsType = {
     removeTask: (taskId: string, todolistId: string) => void
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
-    demo?: boolean
 }
 
-export const Todolist = React.memo(function ({ demo = false, ...props }: PropsType) {
+export const Todolist = React.memo(function ({ ...props }: PropsType) {
     const dispatch = useAppDispatch()
     const [showBox, setShowBox] = useState(true)
 
     useEffect(() => {
-        if (demo) {
-            return
-        }
         const thunk = fetchTasksTC(props.todolist.id)
         dispatch(thunk)
     }, [])

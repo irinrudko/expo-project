@@ -17,19 +17,12 @@ import { Todolist } from './Todolist/Todolist'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { GlobalStyles } from '../../../GlobalStyles'
 
-type PropsType = {
-    demo?: boolean
-}
-
-export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
+export const TodolistsList = () => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>((state) => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>((state) => state.tasks)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (demo) {
-            return
-        }
         const thunk = fetchTodolistsTC()
         dispatch(thunk)
     }, [])
@@ -96,7 +89,6 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
                                     removeTodolist={removeTodolist}
                                     changeTaskTitle={changeTaskTitle}
                                     changeTodolistTitle={changeTodolistTitle}
-                                    demo={demo}
                                 />
                             </View>
                         </View>

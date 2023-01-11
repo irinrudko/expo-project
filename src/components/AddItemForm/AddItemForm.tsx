@@ -1,6 +1,5 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, TextInput, View, Text, TouchableOpacity } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -30,10 +29,9 @@ export const AddItemForm = React.memo(function ({ addItem, disabled = false, var
             <TextInput
                 value={title}
                 onChangeText={onChangeHandler}
-                // onChange={onChangeHandler}
                 placeholder={variant === 'mainInput' ? 'Add new list' : 'What are you up to?'}
                 style={variant === 'mainInput' ? styles.inputMain : styles.input}
-                autoFocus
+                // autoFocus
             />
             <TouchableOpacity
                 style={variant === 'mainInput' ? styles.mainButton : styles.button}
